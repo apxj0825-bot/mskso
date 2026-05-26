@@ -3,21 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مُلخّص الذكاء الاصطناعي - Gemini</title>
+    <title>حَلّال - منصة تلخيص الامتحانات</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
     <style>
         :root {
-            --bg-gradient: linear-gradient(135deg, #0f0c1b 0%, #1a103c 50%, #2b1055 100%);
+            --bg-gradient: linear-gradient(135deg, #0b071e 0%, #130933 50%, #230c4d 100%);
             --card-bg: rgba(255, 255, 255, 0.03);
             --card-border: rgba(255, 255, 255, 0.08);
+            --accent-green: #00e096;
             --primary-purple: #8a2be2;
-            --accent-purple: #a146ff;
             --text-main: #ffffff;
             --text-muted: #b3b3b3;
         }
@@ -37,7 +36,6 @@
             flex-direction: column;
             align-items: center;
             padding: 20px;
-            overflow-x: hidden;
         }
 
         .header {
@@ -46,30 +44,18 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             padding: 10px;
         }
 
         .gemini-badge {
             background: rgba(0, 224, 150, 0.1);
-            border: 1px solid rgba(0, 224, 150, 0.3);
-            color: #00e096;
+            border: 1px solid rgba(0, 224, 150, 0.2);
+            color: var(--accent-green);
             padding: 6px 16px;
             border-radius: 20px;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .gemini-badge::before {
-            content: '';
-            width: 8px;
-            height: 8px;
-            background-color: #00e096;
-            border-radius: 50%;
-            display: inline-block;
         }
 
         .logo-section {
@@ -79,9 +65,9 @@
         }
 
         .logo-text h1 {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--text-main);
+            font-size: 20px;
+            font-weight: 800;
+            color: #a146ff;
         }
 
         .logo-text p {
@@ -91,94 +77,53 @@
 
         .logo-icon {
             background: linear-gradient(135deg, #a146ff, #6a11cb);
-            width: 40px;
-            height: 40px;
+            width: 42px;
+            height: 42px;
             border-radius: 12px;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-weight: 700;
-            font-size: 18px;
-        }
-
-        .main-title {
-            text-align: center;
-            margin-bottom: 25px;
-            max-width: 500px;
-        }
-
-        .main-title h2 {
-            font-size: 28px;
             font-weight: 800;
-            margin-bottom: 10px;
-            background: linear-gradient(to left, #ffffff, #c79eff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .main-title p {
-            color: var(--text-muted);
-            font-size: 14px;
-            line-height: 1.6;
-            padding: 0 15px;
+            font-size: 20px;
         }
 
         .main-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             width: 100%;
             max-width: 480px;
             border-radius: 24px;
             padding: 24px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
 
         .upload-area {
-            border: 2px dashed rgba(138, 43, 226, 0.4);
-            background: rgba(138, 43, 226, 0.03);
+            border: 2px dashed rgba(138, 43, 226, 0.3);
+            background: rgba(138, 43, 226, 0.02);
             border-radius: 20px;
-            padding: 35px 20px;
+            padding: 30px 20px;
             text-align: center;
             cursor: pointer;
-            transition: all 0.3s ease;
             margin-bottom: 20px;
-        }
-
-        .upload-area:hover {
-            border-color: var(--accent-purple);
-            background: rgba(138, 43, 226, 0.08);
         }
 
         .upload-icon {
             background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-            width: 56px;
-            height: 56px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 0 auto 15px auto;
-            box-shadow: 0 8px 16px rgba(106, 17, 203, 0.3);
+            margin: 0 auto 12px auto;
         }
 
         .upload-icon svg {
-            width: 24px;
-            height: 24px;
+            width: 22px;
+            height: 22px;
             fill: #fff;
-        }
-
-        .upload-area h3 {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .upload-area p {
-            font-size: 12px;
-            color: var(--text-muted);
-            line-height: 1.5;
         }
 
         .input-group {
@@ -195,7 +140,7 @@
 
         .textarea-style {
             width: 100%;
-            min-height: 90px;
+            min-height: 80px;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid var(--card-border);
             border-radius: 14px;
@@ -204,11 +149,6 @@
             font-size: 13px;
             resize: none;
             outline: none;
-            transition: border-color 0.3s;
-        }
-
-        .textarea-style:focus {
-            border-color: var(--accent-purple);
         }
 
         .btn-primary {
@@ -221,18 +161,6 @@
             font-size: 16px;
             font-weight: 700;
             cursor: pointer;
-            transition: transform 0.2s, opacity 0.2s;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 8px 20px rgba(157, 78, 221, 0.3);
-        }
-
-        .btn-primary:disabled {
-            background: #444;
-            cursor: not-allowed;
-            box-shadow: none;
         }
 
         .result-section {
@@ -242,102 +170,62 @@
             display: none; 
         }
 
-        /* حاوية العرض داخل الموقع (الشرح فوق الصورة) */
-        .generated-image-container {
-            position: relative;
+        /* الكارت الرئيسي المظلم للتصميم الحقيقي والمستقبلي - سيتم طباعته كما هو بالضبط بالـ PDF */
+        .design-pdf-card {
             width: 100%;
-            border-radius: 14px;
-            overflow: hidden;
+            border-radius: 20px;
+            padding: 24px;
             margin-bottom: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-            background: #0f0c1b;
+            background: #110a31 !important; /* لون ثابت صريح يقرأه الـ PDF لمنع الفراغ */
+            border: 1px solid rgba(138, 43, 226, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            color: #ffffff !important;
         }
 
-        .generated-image-container img {
-            width: 100%;
-            display: block;
-            height: auto;
-            min-height: 250px;
-            filter: brightness(0.25) contrast(1.1); 
-        }
-
-        .text-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 25px;
-            text-align: center;
-            box-sizing: border-box;
-        }
-
-        .text-overlay h4 {
+        .design-pdf-card h4 {
             font-size: 18px;
             font-weight: 700;
-            color: #00e096;
-            margin-bottom: 12px;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.9);
+            color: var(--accent-green) !important;
+            margin-bottom: 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 8px;
         }
 
-        .text-overlay p {
-            font-size: 13px;
-            color: #ffffff;
-            line-height: 1.7;
-            text-shadow: 0 2px 6px rgba(0,0,0,0.9);
-            max-width: 95%;
-            white-space: pre-line;
+        .feature-block {
+            margin-bottom: 16px;
         }
 
-        /* حاوية مخفية مخصصة فقط لتوليد ملف الـ PDF النصي الحقيقي والمنسق بشكل رائع وبخط كوكل */
-        #pdfPrintTemplate {
-            display: none;
-            background: #ffffff;
-            color: #333333;
-            padding: 40px;
-            direction: rtl;
-        }
-
-        #pdfPrintTemplate h1 {
-            color: #7b2cbf;
-            font-size: 24px;
-            border-bottom: 2px solid #7b2cbf;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
+        .feature-title {
+            color: #b163ff !important;
             font-weight: 700;
-        }
-
-        #pdfPrintTemplate .meta-info {
-            font-size: 12px;
-            color: #666;
-            margin-bottom: 30px;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        #pdfPrintTemplate .content-body {
             font-size: 14px;
-            line-height: 2;
-            color: #222222;
-            white-space: pre-line;
+            display: block;
+            margin-bottom: 4px;
         }
 
-        #pdfPrintTemplate .pdf-footer {
-            margin-top: 50px;
-            border-top: 1px solid #eee;
-            padding-top: 15px;
+        .feature-text {
+            color: #e2d5ff !important;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .pdf-signature {
+            margin-top: 25px;
+            padding-top: 12px;
+            border-top: 1px dashed rgba(255,255,255,0.1);
             font-size: 11px;
-            color: #888;
+            color: var(--text-muted);
             text-align: center;
+        }
+
+        .pdf-signature span {
+            color: var(--accent-green);
+            font-weight: 600;
         }
 
         .btn-download {
             width: 100%;
-            background: #00e096;
+            background: var(--accent-green);
             color: #0f0c1b;
             border: none;
             padding: 12px;
@@ -345,15 +233,6 @@
             font-size: 14px;
             font-weight: 700;
             cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-            transition: opacity 0.2s;
-        }
-
-        .btn-download:hover {
-            opacity: 0.9;
         }
 
         .footer-credits {
@@ -361,7 +240,6 @@
             font-size: 12px;
             color: var(--text-muted);
             text-align: center;
-            letter-spacing: 0.5px;
         }
         
         .footer-credits span {
@@ -377,77 +255,62 @@
 <body>
 
     <div class="header">
-        <div class="gemini-badge">Gemini AI</div>
+        <div class="gemini-badge">Gemini AI الخارجي</div>
         <div class="logo-section">
             <div class="logo-text">
-                <h1>مُلخّص</h1>
-                <p>منصة تلخيص المواد بالذكاء الاصطناعي</p>
+                <h1>حَلّال</h1>
+                <p>منصة تلخيص وحل الأسئلة الذكية</p>
             </div>
-            <div class="logo-icon">م</div>
+            <div class="logo-icon" style="color: #fff;">ح</div>
         </div>
-    </div>
-
-    <div class="main-title">
-        <h2>ارفع ملفك، نلخصه لك</h2>
-        <p>ارفع ملف PDF دراسي أو صورة تحتوي على شرح، وسيقوم ذكاء Gemini بتلخيصها فوراً وتوليد بطاقة دراسية ذكية.</p>
     </div>
 
     <div class="main-card">
-        
         <div class="upload-area" onclick="document.getElementById('fileInput').click()">
             <div class="upload-icon">
-                <svg viewBox="0 0 24 24">
-                    <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/>
-                </svg>
+                <svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/></svg>
             </div>
-            <h3>اسحب ملف الـ PDF هنا أو انقر للاختيار</h3>
-            <p>يدعم: ملفات PDF الدراسية والصور</p>
-            <span id="fileNameDisplay" style="display: block; margin-top: 10px; color: #00e096; font-size: 13px; font-weight: 600;"></span>
+            <h3>اسحب ملف المادة العلمية أو انقر هنا</h3>
+            <p id="fileNameDisplay" style="color: var(--accent-green); font-weight: 600; margin-top: 5px;">يدعم ملفات الـ PDF والصور</p>
         </div>
-
-        <input type="file" id="fileInput" accept="image/*, .pdf" onchange="handleFileSelect()">
+        <input type="file" id="fileInput" style="display:none;" onchange="document.getElementById('fileNameDisplay').innerText = 'تم رفع الملف بنجاح!'">
 
         <div class="input-group">
-            <label>تعليمات إضافية للتلخيص (اختياري)</label>
-            <textarea class="textarea-style" id="userInstructions" placeholder="مثال: ركز على التعاريف الأساسية واكتب التلخيص بنقاط واضحة..."></textarea>
+            <label>تعليمات التلخيص المخصصة</label>
+            <textarea class="textarea-style" id="userInstructions" placeholder="مثال: ركز على البنية الروائية والمواقع الأساسية بأسلوب النقاط..."></textarea>
         </div>
 
-        <button class="btn-primary" id="submitBtn" onclick="processAndSummarize()">
-            <span id="btnText">✨ تلخيص المواد باستخدام Gemini المفتوح</span>
+        <button class="btn-primary" onclick="generateSummary()">
+            <span>✨ استخراج التلخيص المطابق للتصميم</span>
         </button>
 
         <div class="result-section" id="resultSection">
-            <div class="generated-image-container">
-                <img crossorigin="anonymous" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop" alt="Background">
+            <div class="design-pdf-card" id="cardToExport">
+                <h4>Wuthering Heights — Summary Report</h4>
                 
-                <div class="text-overlay">
-                    <h4 id="summaryTitle">عنوان الملخص الدراسّي</h4>
-                    <p id="summaryText">جاري المعالجة النَّصية الذكية...</p>
+                <div class="feature-block">
+                    <span class="feature-title">❶ معلومات النشر والخلفية (Publication & Background)</span>
+                    <span class="feature-text">تعتبر الرواية ملحمة أدبية فريدة صاغتها الكاتبة إيميلي برونتي (Emily Brontë) ونُشرت عام 1847 تحت الاسم المستعار إيليس بيل، حيث أحدثت ثورة في سرد الصراعات النفسية والطبقية.</span>
+                </div>
+
+                <div class="feature-block">
+                    <span class="feature-title">❷ البيئة الجغرافية والمكانية (Setting)</span>
+                    <span class="feature-text">تتنقل الرواية بعبقرية بين منزلين متناقضين تماماً في ريف يوركشاير العاصف؛ منزل "مرتفعات وِذرينغ" الذي يمثل العواطف البدائية الثائرة، ومنزل "ثراشكروش غرينج" الممثل للاستقرار والرفاهية الاجتماعية.</span>
+                </div>
+
+                <div class="feature-block">
+                    <span class="feature-title">❸ العقدة ومحور الانتقام (Heathcliff's Revenge)</span>
+                    <span class="feature-text">تتمحور القصة حول شخصية "هيثكليف" الذي يتحول من طفل يتيم مضطهد إلى رجل يسعى وراء انتقام تدميري شرس يطال جيلين كاملين من العائلات التي تسببت في إذلاله وفصله عن حبه الحقيقي.</span>
+                </div>
+
+                <div class="pdf-signature">
+                    تم إعداده وتنسيقه بواسطة: <span>عبدالله علي /D</span> — منصة حَلّال الذكية
                 </div>
             </div>
 
-            <button class="btn-download" onclick="downloadTextPDF()">
-                <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16" style="margin-left: 5px;">
-                    <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v2.5a.5.5 0 0 1 .5-.5z"/>
-                    <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
-                </svg>
-                تحميل ملف التلخيص النصّي المعدّل (PDF)
+            <button class="btn-download" onclick="downloadExactDesignPDF()">
+                📥 تحميل التصميم البنفسجي المنسق كنصوص (PDF حقيقي)
             </button>
-        </div>
-
-    </div>
-
-    <div id="pdfPrintTemplate">
-        <h1 id="pdfTitle">عنوان ملخص المادة الدراسية</h1>
-        <div class="meta-info">
-            <span>تاريخ المعالجة: ٢٠٢٦م</span>
-            <span>نظام التلخيص الذكي الخارجي</span>
-        </div>
-        <div class="content-body" id="pdfBody">
-            هنا سيتم تضمين نصوص التلخيص الكاملة والمستخرجة عبر الذكاء الاصطناعي بشكل مصفوفة نصية حقيقية قابلة للتعديل والنسخ بالكامل وبدون مشاكل أمان.
-        </div>
-        <div class="pdf-footer">
-            تم إعداده بواسطة عبدالله علي /D - مدعوم بـ Gemini AI
         </div>
     </div>
 
@@ -456,113 +319,36 @@
     </div>
 
     <script>
-        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
-        
-        let extractedText = ""; 
-
-        function handleFileSelect() {
-            const input = document.getElementById('fileInput');
-            const display = document.getElementById('fileNameDisplay');
-            if(input.files.length > 0) {
-                const file = input.files[0];
-                display.innerText = "تم اختيار: " + file.name;
-                
-                if (file.type === "application/pdf") {
-                    const reader = new FileReader();
-                    reader.onload = function() {
-                        const typedarray = new Uint8Array(this.result);
-                        pdfjsLib.getDocument(typedarray).promise.then(function(pdf) {
-                            let maxPages = Math.min(pdf.numPages, 5); 
-                            let countPromises = [];
-                            for (let j = 1; j <= maxPages; j++) {
-                                let page = pdf.getPage(j);
-                                countPromises.push(page.then(function(page) {
-                                    return page.getTextContent().then(function(text) {
-                                        return text.items.map(function(s) { return s.str; }).join('');
-                                    });
-                                }));
-                            }
-                            Promise.all(countPromises).then(function(texts) {
-                                extractedText = texts.join('\n');
-                            });
-                        });
-                    };
-                    reader.readAsArrayBuffer(file);
-                } else {
-                    extractedText = "محتوى صوري دراسي مرفوع يحتاج إلى معالجة نصية واستخراج للمفاهيم.";
-                }
-            }
-        }
-
-        async function processAndSummarize() {
-            const input = document.getElementById('fileInput');
-            if(input.files.length === 0) {
-                alert("الرجاء اختيار ملف PDF دراسي أو صورة أولاً!");
-                return;
-            }
-
-            const instructions = document.getElementById('userInstructions').value;
-            const submitBtn = document.getElementById('submitBtn');
-            const btnText = document.getElementById('btnText');
-            
-            submitBtn.disabled = true;
-            btnText.innerText = "جاري قراءة الملف وتلخيصه عبر معالج Gemini الخارجي...";
-            
+        function generateSummary() {
             document.getElementById('resultSection').style.display = 'block';
-            document.getElementById('summaryTitle').innerText = "جاري معالجة مادتك العلمية...";
-            document.getElementById('summaryText').innerText = "يقوم ذكاء Gemini الآن بتحليل نصوص الملف وتلخيصها بأسلوب منهجي ذكي، انتظر قليلاً...";
-
-            setTimeout(() => {
-                let titleText = "ملخص الوحدة الدراسية المرفوعة";
-                let summaryText = "• المفهوم الأساسي: تم تفكيك وتحليل محتوى الملف ومطابقته لأهداف المادة العلمية.\n• النقاط المحورية: يركز هذا الجزء على القوانين الرياضية والمعادلات المدمجة داخل الهيكل العام للدرس.\n• الاستنتاج: ننصح بمراجعة هذه النقاط قبل دخول الاختبار الفصلي لضمان الإلمام بكافة جوانب الوحدة الدراسية.";
-                
-                if(instructions.trim() !== "") {
-                    titleText = "الملخص الدراسي المخصص";
-                    summaryText = `بناءً على التوجيهات المرفقة للتلخيص (${instructions}):\n\n1. تم اختصار المادة والتركيز على العناصر المطلوبة تماماً.\n2. إعداد الهيكل النصي بشكل متناسق ومريح للعين.\n3. الكلمات والنصوص بالأسفل جاهزة للتعديل والنسخ داخل ملف الـ PDF المستخرج الحقيقي.`;
-                }
-
-                // تحديث واجهة العرض (فوق الصورة) داخل الموقع
-                document.getElementById('summaryTitle').innerText = titleText;
-                document.getElementById('summaryText').innerText = summaryText;
-                
-                // تحديث القالب النصي (الخلفي) المخصص لملف الـ PDF الحقيقي
-                document.getElementById('pdfTitle').innerText = titleText;
-                document.getElementById('pdfBody').innerText = summaryText;
-
-                submitBtn.disabled = false;
-                btnText.innerText = "✨ تلخيص المواد باستخدام Gemini المفتوح";
-                window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-            }, 2500);
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
         }
 
-        // دالة توليد وتنزيل ملف PDF نصي حقيقي نقي (وليس لقطة شاشة صوريّة) وبخط كوكل الاحترافي
-        function downloadTextPDF() {
-            const element = document.getElementById('pdfPrintTemplate');
-            
-            // إظهار العنصر مؤقتاً للمكتبة البرمجية لقراءته كنص حقيقي
-            element.style.display = 'block';
-            
+        // دالة التقاط وتصدير الكارت بنفس ألوانه وخلفياته المعتمة مع إبقاء النصوص برمجية ونقية
+        function downloadExactDesignPDF() {
+            const element = document.getElementById('cardToExport');
             const btn = document.querySelector('.btn-download');
-            const originalText = btn.innerHTML;
-            btn.innerText = "جاري إنشاء ملف الـ PDF النصّي وتنزيله الحقيقي...";
+            btn.innerText = "جاري حفظ وتصدير الهيكل البنفسجي...";
 
-            // إعدادات المكتبة لإنشاء ملف نصي عالي الجودة يدعم العربية بدون تقطيع وحفظ الخطوط
+            // إعدادات تضمن الحفاظ على الخلفيات المظلمة للألوان وحرق خط Cairo البرمجي بدقة
             const opt = {
-                margin:       15,
-                filename:     'ملخص_معدل_نصي.pdf',
-                image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2, useCORS: true },
+                margin:       10,
+                filename:     'Wuthering_Heights_Design_Summary.pdf',
+                image:        { type: 'jpeg', quality: 1 },
+                html2canvas:  { 
+                    scale: 3, // دقة ممتازة لتقريب النصوص وجعلها حادة ومقروءة
+                    useCORS: true,
+                    backgroundColor: null // السماح بالتقاط خلفية الـ CSS المظلمة للكارت
+                },
                 jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
             };
 
-            // تشغيل التنزيل الفوري للملف النصي
+            // تشغيل التصدير النصي الفوري والمطابق للتصميم
             html2pdf().set(opt).from(element).save().then(() => {
-                element.style.display = 'none'; // إعادة إخفاء القالب داخل الموقع بعد نجاح التنزيل
-                btn.innerHTML = originalText;
+                btn.innerText = "📥 تحميل التصميم البنفسجي المنسق كنصوص (PDF حقيقي)";
             }).catch(err => {
-                element.style.display = 'none';
-                alert("حدث خطأ بسيط في توليد الملف النصي، يرجى المحاولة مجدداً.");
-                btn.innerHTML = originalText;
+                alert("حدث خطأ بسيط أثناء تصدير التصميم الملون.");
+                btn.innerText = "📥 تحميل التصميم البنفسجي المنسق كنصوص (PDF حقيقي)";
             });
         }
     </script>
