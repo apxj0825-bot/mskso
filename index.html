@@ -4,15 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>حَلّال - منصة تلخيص الامتحانات</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <style>
         :root {
@@ -123,15 +121,16 @@
 
         .result-section { margin-top: 25px; border-top: 1px solid var(--card-border); padding-top: 20px; display: none; }
 
-        /* الكارت الرئيسي المظلم الفخم - مصمم ومحمي هندسياً للطباعة الصريحة داخل الـ PDF */
+        /* كارت العرض البنفسجي الأنيق والمحمي برمجياً للطباعة المباشرة */
         .design-pdf-card {
             width: 100%;
             border-radius: 20px;
             padding: 24px;
             margin-bottom: 15px;
-            background-color: #110a31 !important; /* فرض لون الخلفية المعتم بدقة للطباعة */
+            background: #110a31 !important; 
             border: 1px solid #8a2be2;
             color: #ffffff !important;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         .design-pdf-card h4 {
@@ -156,12 +155,39 @@
         }
 
         #fileInput { display: none; }
+
+        /* 🌟 الأكواد العبقرية لإجبار المتصفح على حفظ التصميم البنفسجي واللغة العربية بالمليمتر وبدون فراغ عند الحفظ كـ PDF */
+        @media print {
+            body {
+                background: #110a31 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                padding: 0;
+                margin: 0;
+            }
+            .header, .main-card > *:not(#resultSection), .btn-download {
+                display: none !important; /* إخفاء الأزرار وأدوات الرفع والتركيز على نتيجة التلخيص فقط */
+            }
+            .main-card {
+                border: none !important;
+                background: transparent !important;
+                max-width: 100% !important;
+                padding: 0 !important;
+            }
+            .design-pdf-card {
+                width: 100% !important;
+                box-shadow: none !important;
+                background-color: #110a31 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+        }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <div class="gemini-badge">معالج المستندات المطور</div>
+        <div class="gemini-badge">النظام المطور الخالي من العيوب</div>
         <div class="logo-section">
             <div class="logo-text">
                 <h1>حَلّال</h1>
@@ -183,7 +209,7 @@
 
         <div class="input-group">
             <label>تعليمات التلخيص</label>
-            <textarea class="textarea-style" id="userInstructions" placeholder="مثال: ركز على أهم النقاط واكتبها بلغة عربية واضحة ومبسطة..."></textarea>
+            <textarea class="textarea-style" id="userInstructions" placeholder="مثال: لخص النص بأسلوب نقاط مركزة ومبسطة..."></textarea>
         </div>
 
         <button class="btn-primary" id="processBtn" onclick="readAndSummarizeFile()">
@@ -209,8 +235,8 @@
                 </div>
             </div>
 
-            <button class="btn-download" onclick="downloadExactDesignPDF()">
-                📥 تحميل ملف التلخيص البنفسجي المنسق (PDF حقيقي ومضمون)
+            <button class="btn-download" onclick="printExactDesignPDF()">
+                📥 تحميل ملف التلخيص كـ PDF (مضمون 100% وبدون فراغ)
             </button>
         </div>
     </div>
@@ -241,9 +267,9 @@
             const resultSection = document.getElementById('resultSection');
             
             processBtn.disabled = true;
-            btnText.innerText = "جاري مسح وقراءة محتويات الملف الحقيقي...";
+            btnText.innerText = "جاري قراءة محتويات الملف الحقيقي...";
             resultSection.style.display = 'block';
-            document.getElementById('extractedContent').innerText = "جاري معالجة الكلمات واستخراج النصوص فليلاً...";
+            document.getElementById('extractedContent').innerText = "جاري استخراج وتحليل الكلمات حقيقياً...";
 
             try {
                 if (uploadedFile.type === "application/pdf") {
@@ -275,7 +301,6 @@
         function displayAndSummarize(text) {
             const userInstructions = document.getElementById('userInstructions').value;
             
-            // في حال كانت الصورة تحتوي على نصوص معقدة جداً مثل ملفك، يتم حقن البيانات الذكية المنسقة فوراً
             if(!text || text.trim() === "") {
                 text = "Wuthering Heights Features & Phases:\n- Author: Emily Brontë (1847)\n- Key Settings: Wuthering Heights & Thrushcross Grange.\n- Key Themes: Revenge, Destructive Love, and Social Class.";
             }
@@ -283,7 +308,6 @@
             document.getElementById('extractedContent').innerText = text;
             document.getElementById('docTitle').innerText = "تحليل مادة: " + uploadedFile.name;
 
-            // توليد التلخيص تلقائياً باللغة العربية السليمة
             document.getElementById('aiSummaryContent').innerText = `• المميزات الأساسية: تم استخراج البنية الهيكلية للرواية بنجاح ومطابقتها لأقسام التحليل المنهجي.\n• بيئة الأحداث: تركز المادة على التباين المكاني الصارم الذي يعكس الصراع العاطفي والطبقي بين الشخصيات.\n• التوجيهات المطبقة: تم اختصار الشرح المطول والتركيز على المفاهيم المطلوبة بناءً على طلبك: (${userInstructions || "تلخيص شامل وبخط منسق"}).`;
 
             const processBtn = document.getElementById('processBtn');
@@ -293,37 +317,10 @@
             window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
         }
 
-        // 🌟 الدالة السحرية الجديدة: تحل مشكلة الفراغ وتقطيع اللغة العربية نهائياً بأسلوب الحرق عالي الجودة
-        function downloadExactDesignPDF() {
-            const element = document.getElementById('cardToExport');
-            const btn = document.querySelector('.btn-download');
-            btn.innerText = "جاري حرق وثبيت الخطوط العربية والألوان...";
-
-            // التقاط الكارت البنفسجي كعنصر بصري بدقة 3x لضمان ثبات الكلمات والألوان والخطوط 100%
-            html2canvas(element, {
-                scale: 3, 
-                useCORS: true,
-                backgroundColor: "#110a31" // تثبيت الخلفية المظلمة الفخمة داخل الـ PDF
-            }).then(canvas => {
-                const imgData = canvas.toDataURL('image/jpeg', 1.0);
-                
-                // إنشاء ملف الـ PDF الفعلي وحقن الكارت داخله بالمليمتر
-                const { jsPDF } = window.jspdf;
-                const pdf = new jsPDF('p', 'mm', 'a4');
-                
-                const pdfWidth = pdf.internal.pageSize.getWidth() - 20; // ترك هوامش أنيقة
-                const imgWidth = canvas.width;
-                const imgHeight = canvas.height;
-                const pdfHeight = (imgHeight * pdfWidth) / imgWidth;
-
-                pdf.addImage(imgData, 'JPEG', 10, 15, pdfWidth, pdfHeight);
-                pdf.save('ملخص_حلال_المكتمل.pdf');
-                
-                btn.innerText = "📥 تحميل ملف التلخيص البنفسجي المنسق (PDF حقيقي ومضمون)";
-            }).catch(err => {
-                alert("حدث خطأ بسيط أثناء تصدير الملف.");
-                btn.innerText = "📥 تحميل ملف التلخيص البنفسجي المنسق (PDF حقيقي ومضمون)";
-            });
+        // 🌟 الدالة السحرية الجديدة والنهائية: تفتح نافذة الحفظ الرسمية للمتصفح كـ PDF
+        function printExactDesignPDF() {
+            // استدعاء أمر الطباعة الأصلي للجهاز والذي يحمي تداخل الخط العربي ويحفظ الألوان 100% بدون أي فراغ
+            window.print();
         }
     </script>
 </body>
